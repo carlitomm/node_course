@@ -1,0 +1,16 @@
+{
+  "name": "nodejs_course",
+  "version": "1.0.0",
+  "description": "complete nodejs guide",
+  "main": "1play.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon semana4/app.js",
+    "start-server": "node app.js"
+  },
+  "author": "carlos",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
