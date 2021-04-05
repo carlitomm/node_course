@@ -4,7 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error');
-const db = require('./util/database')
+const sequelize = require('./util/database')
+const Product = require('./models/product');
+const User = require('./models/user');
 
 const app = express();
 
@@ -22,4 +24,25 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(3000);
+Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
+User.hasMany(Product);
+
+sequelize.sync()
+    .then((result) => {
+        return User.findByPk(1);
+        
+    })
+    .then( user => {
+        if(!user){
+            return User.create({name: 'Carlos', email: 'cmiguelezmachado'})
+        }
+        return Promise.resolve(user) 
+    })
+    .then( user => {
+        console.log(user);
+        app.listen(3000);
+    })
+    .catch((err) => {
+        console.log(err)
+    });
+
